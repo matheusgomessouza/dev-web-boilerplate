@@ -28,13 +28,13 @@ export function Form() {
   return (
     <form onSubmit={handleCreateUser} className={styles.form}>
         <label htmlFor="name">Name</label>
-        <input id="name" type="text" placeholder='John Doe' value={userData.name} onChange={(e) => setUserData({
+        <input id="name" autoComplete='on' type="text" placeholder='John Doe' value={userData.name} onChange={(e) => setUserData({
           ...userData,
           name: e.target.value
         })} />
         <br />
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" placeholder='mail@mail.com' value={userData.email} onChange={(e) => setUserData({
+        <input id="email" autoComplete='off' type="text" placeholder='mail@mail.com' value={userData.email} onChange={(e) => setUserData({
           ...userData,
           email: e.target.value
         })} /><br />
