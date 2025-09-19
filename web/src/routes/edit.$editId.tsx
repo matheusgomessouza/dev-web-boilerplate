@@ -22,7 +22,6 @@ type Visitation = {
 }
 
 function RouteComponent() {
-  const [isUpdate, setIsUpdate] = useState(false)
   const [visitationInfo, setVisitationInfo] = useState<Visitation>({
     name: '',
     address: '',
@@ -32,7 +31,6 @@ function RouteComponent() {
     evaluation: 0
   })
   const { editId } = Route.useParams()
-  const navigate = useNavigate()
   
   async function getVisitation() {
     try {
@@ -60,17 +58,6 @@ function RouteComponent() {
       alert('Failed to update visitation.')
     }
   }
-
-  async function handleDeleteVisitation() {
-    try {
-      await axios.delete(`http://localhost:8080/visitation/${editId}`)
-      alert('Visitation deleted successfully!')
-      navigate({ to: '/' })
-    } catch (error) {
-      console.error('Error deleting visitation:', error)
-      alert('Failed to delete visitation.')
-    }
-  }
   
   useEffect(() => {
     getVisitation()
@@ -80,7 +67,7 @@ function RouteComponent() {
   return (
       <main className={styles.container}>
         <Menu />
-        <form onSubmit={isUpdate ? handleUpdateVisitation : handleDeleteVisitation} className={styles.form}>
+        <form onSubmit={handleUpdateVisitation} className={styles.form}>
           <label htmlFor="name">Name</label>
           <input id="name" autoComplete='on' type="text" placeholder='John Doe' value={visitationInfo.name} onChange={(e) => setVisitationInfo({
             ...visitationInfo,
@@ -104,8 +91,7 @@ function RouteComponent() {
               evaluation: value
             });
           }} />
-          <Button onClick={() => setIsUpdate(true)}>Update</Button>
-          <Button disabled onClick={() => setIsUpdate(false)}>Delete</Button>
+          <Button>Update</Button>
         </form>
       </main>
   )

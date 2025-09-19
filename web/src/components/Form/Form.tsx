@@ -33,8 +33,18 @@ export function Form() {
         description: visitationData.description,
         evaluation: visitationData.evaluation
       });
+      
       console.log('Visitation created:', response.data);
       alert('Visitation created successfully!');
+
+      setVisitationData({
+        name: '',
+        address: '',
+        hour: '',
+        date: '',
+        description: '',
+        evaluation: 0
+      });
     } catch (error) {
       console.error('Error creating visitation:', error);
       alert('Failed to create visitation.');
@@ -44,22 +54,22 @@ export function Form() {
   return (
     <form onSubmit={handleCreateVisitation} className={styles.form}>
         <label htmlFor="name">Name</label>
-        <input id="name" autoComplete='on' type="text" placeholder='John Doe' value={visitationData.name} onChange={(e) => setVisitationData({
+        <input required id="name" autoComplete='on' type="text" placeholder='John Doe' value={visitationData.name} onChange={(e) => setVisitationData({
           ...visitationData,
           name: e.target.value
         })} />
         <label htmlFor="address">Address</label>
-        <input id="address" autoComplete='off' type="text" placeholder='123 Main St, City, State' value={visitationData.address} onChange={(e) => setVisitationData({
+        <input required id="address" autoComplete='off' type="text" placeholder='123 Main St, City, State' value={visitationData.address} onChange={(e) => setVisitationData({
           ...visitationData,
           address: e.target.value
         })} />
         <label htmlFor="description">Description</label>
-        <input id="description" autoComplete='off' type="text" placeholder='Brief description of your visit' value={visitationData.description} onChange={(e) => setVisitationData({
+        <input required id="description" autoComplete='off' type="text" placeholder='Brief description of your visit' value={visitationData.description} onChange={(e) => setVisitationData({
           ...visitationData,
           description: e.target.value
         })} />
         <label htmlFor="evaluation">Description</label>
-        <input id="evaluation" type="number" min={0} max={10} placeholder='Evaluate from 0 to 10' step={1} value={visitationData.evaluation} onChange={(e) => {
+        <input required id="evaluation" type="number" min={0} max={10} placeholder='Evaluate from 0 to 10' step={1} value={visitationData.evaluation} onChange={(e) => {
           const value = Math.min(10, Math.max(0, Number(e.target.value)));
           setVisitationData({
             ...visitationData,
